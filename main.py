@@ -1796,7 +1796,7 @@ def PrintReport():
 def Database():
     global conn, cursor
     try:
-        conn = cx_Oracle.connect("nixrajput/hackerx000@localhost:1521/orcl")
+        conn = cx_Oracle.connect("username/password@localhost:1521/orcl")
         print("Connected to Oracle DB")
     except cx_Oracle.DatabaseError as exception:
         msg = "Failed to connect to Oracle DB " + str(exception)
