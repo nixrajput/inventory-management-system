@@ -1,7 +1,7 @@
 # Inventory Management System
 An Inventory Management System software for desktop to manage inventory.
 
-![Finished App](https://https://github.com/nixrajput/inventory-management-system/Screenshot_Invenoty_Management.png)
+![Finished App](https://github.com/nixrajput/inventory-management-system/blob/master/Screenshot_Invenoty_Management.png)
 
 ## What you will learn
 
