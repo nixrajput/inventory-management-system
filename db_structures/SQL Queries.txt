@@ -1,0 +1,172 @@
+ADMIN TABLE :
+
+ 	CREATE TABLE admin(
+		id NUMBER(10) not null,
+		admin_id VARCHAR2(20) primary key,
+		password VARCHAR2(20) not null,
+		name VARCHAR2(20) not null,
+		email VARCHAR2(30) not null
+ 	);
+
+	sql_login_admin = "SELECT * FROM admin WHERE admin_id = :uname AND password = :upass"
+        cursor.execute(sql_login_admin, {'uname': admin_id, 'upass': password})
+
+
+BRAND TABLE :
+ 
+	##Creating table
+
+	CREATE TABLE brands(
+		brand_id NUMBER(10) not null,
+		brand_name VARCHAR2(40) primary key,
+		status VARCHAR2(20) not null
+	);
+
+	##Fetching data
+
+	SELECT * FROM brands ORDER BY brand_id;
+
+	##Inserting data
+
+	sql_insert_data = "INSERT INTO brands (brand_name, status) VALUES (:bname, :bstatus)"
+	cursor.execute(sql_insert_data, {'bname': brandName, 'bstatus': brandStatus})
+
+	##Searching data
+
+	sql_search_data = "SELECT * FROM brands WHERE UPPER(brand_name) LIKE  '%' || UPPER(:s) || '%'"
+	cursor.execute(sql_search_data, {'s': search})
+
+	##Deleting data
+
+	sql_delete_data = "DELETE FROM brands WHERE brand_name = :d"
+	cursor.execute(sql_delete_data, {'d': selectedItem[1]})
+
+	##Updating data
+	
+	sql_update_data = "UPDATE brands SET brand_name= :bn, status= :st WHERE brand_name= :bn"
+	cursor.execute(sql_update_data, {'bn': bnm, 'st': bst})
+
+
+CATEGORY TABLE :
+ 
+	##Creating table
+
+	CREATE TABLE category(
+		category_id NUMBER(10) not null,
+		category_name VARCHAR2(20) primary key,
+		status VARCHAR2(20) not null
+	);
+
+	##Fetching data
+
+	SELECT * FROM category ORDER BY category_id;
+
+	##Inserting data
+
+	sql_insert_data = "INSERT INTO category (category_name, status) VALUES (:bname, :bstatus)"
+	cursor.execute(sql_insert_data, {'bname': cname, 'bstatus': cst})
+
+	##Searching data
+
+	sql_search_data = "SELECT * FROM category WHERE UPPER(category_name) LIKE  '%' || UPPER(:s) || '%'"
+	cursor.execute(sql_search_data, {'s': search})
+
+	##Deleting data
+
+	sql_delete_data = "DELETE FROM category WHERE category_name = :d"
+	cursor.execute(sql_delete_data, {'d': selectedItem[1]})
+
+	##Updating data
+	
+	sql_update_data = "UPDATE category SET category_name= :bn, status= :st WHERE category_name= :bn"
+	cursor.execute(sql_update_data, {'bn': bnm, 'st': bst})
+
+
+PRODUCTS TABLE :
+
+	##Creating table
+
+	CREATE TABLE products(
+		product_id NUMBER(10) not null,
+		product_name VARCHAR2(20) primary key,
+		quantity NUMBER(10)
+		rate NUMBER(10,2)
+		product_brand VARCHAR2(20) not null,
+		product_category VARCHAR2(20) not null,
+		status VARCHAR2(20) not null
+	);
+
+	##Fetching data
+
+	SELECT * FROM products ORDER BY product_id;
+
+	##Inserting data
+
+	sql_insert_data = "INSERT INTO products (product_name, quantity, rate, product_brand, product_category, " \
+                          "status) VALUES (:pname, :qty, :rate, :pbrand, :pcat, :bstatus)"
+	cursor.execute(sql_insert_data, {'pname': pname, 'qty': qty, 'rate': rate,
+                                             'pbrand': bname, 'pcat': bcat, 'bstatus': cst})
+	##Searching data
+
+	sql_search_data = "SELECT * FROM products WHERE UPPER(product_name) LIKE  '%' || UPPER(:s) || '%'"
+	cursor.execute(sql_search_data, {'s': search})
+
+	##Deleting data
+
+	sql_delete_data = "DELETE FROM products WHERE product_name = :d"
+	cursor.execute(sql_delete_data, {'d': selectedItem[1]})
+
+	##Updating data
+	
+	sql_update_data = "UPDATE products SET product_name = :bn, quantity = :qty, rate = :rate, product_brand = :brand," \
+                      "product_category = :cat,  status = :st WHERE product_name = :bn"
+	cursor.execute(sql_update_data, {'bn': pname, 'qty': qty, 'rate': rate, 'brand': bname, 'cat': bcat, 'st': cst})
+
+
+ORDER TABLE :
+
+	##Creating table
+	
+	CREATE TABLE orders(
+		order_id NUMBER(10) primary key,
+		order_date DATE,
+		client_name VARCHAR2(20) not null,
+		client_no VARCHAR2(10),
+		product VARCHAR2(20) not null,
+		quantity NUMBER(10) not null,
+		total_amount NUMBER(10,2) not null,
+		paid_amount NUMBER(10,2) not null,
+		due_amount NUMBER(10,2),
+		payment_status VARCHAR2(30)
+	);
+
+	##Fetching data
+
+	SELECT order_id, TO_CHAR(order_date, 'mm/dd/yy'), client_name, client_no, product, quantity,
+                       total_amount, paid_amount, due_amount, payment_status FROM orders ORDER BY order_date DESC;
+
+	##Inserting data
+
+	sql_insert_data = "INSERT INTO orders (order_date, client_name, client_no, product, quantity, " \
+                          "total_amount, paid_amount, due_amount, payment_status) VALUES (TO_DATE(:dt, 'mm/dd/yy')," \
+                          ":cn, :cno, :prd, :qty, :tam, :pam, :dam, :st)"
+	cursor.execute(sql_insert_data, {'dt': odate, 'cn': cname, 'cno': cno, 'prd': pname,
+                                             'qty': qty, 'tam': tamount, 'pam': pamount, 'dam': damount, 'st': pst})
+	##Searching data
+
+	sql_search_data = "SELECT * FROM orders WHERE UPPER(client_name) LIKE  '%' || UPPER(:s) || '%'"
+	cursor.execute(sql_search_data, {'s': search})
+
+	##Deleting data
+
+	sql_delete_data = "DELETE FROM orders WHERE order_id = :d"
+	cursor.execute(sql_delete_data, {'d': selectedItem[1]})
+
+	##Updating data
+	
+	sql_update_data = "UPDATE orders SET client_name = :cname, client_no = :cno, " \
+                      "paid_amount = :paid, due_amount = :dues, payment_status = :pst WHERE order_id = :id"
+	cursor.execute(sql_update_data, {'cname': cname, 'cno': cno, 'paid': pamount, 'dues': damount,
+                                         'pst': pst, 'id': order_id})
+
+	

@@ -1,0 +1,63 @@
+ADMIN TABLE :
+
+	CREATE SEQUENCE admin_seq START WITH 1;
+
+	CREATE OR REPLACE TRIGGER admin_tgr
+	BEFORE INSERT ON admin
+	FOR EACH ROW
+	BEGIN
+		:new.id := admin_seq.NEXTVAL;
+	END;
+	/
+
+
+BRAND TABLE :
+
+	CREATE SEQUENCE brand_seq START WITH 1;
+
+	CREATE OR REPLACE TRIGGER brand_tgr
+	BEFORE INSERT ON brands
+	FOR EACH ROW
+	BEGIN
+		:new.brand_id := brand_seq.NEXTVAL;
+	END;
+	/
+
+
+CATEGORY TABLE :
+
+	CREATE SEQUENCE cat_seq START WITH 1;
+
+	CREATE OR REPLACE TRIGGER cat_tgr
+	BEFORE INSERT ON category
+	FOR EACH ROW
+	BEGIN
+		:new.category_id := cat_seq.NEXTVAL;
+	END;
+	/
+
+
+PRODUCTS TABLE :
+
+	CREATE SEQUENCE product_seq START WITH 1;
+
+	CREATE OR REPLACE TRIGGER product_tgr
+	BEFORE INSERT ON products
+	FOR EACH ROW
+	BEGIN
+		:new.product_id := product_seq.NEXTVAL;
+	END;
+	/
+
+
+ORDERS TABLE :
+
+	CREATE SEQUENCE order_seq START WITH 1;
+
+	CREATE OR REPLACE TRIGGER order_tgr
+	BEFORE INSERT ON orders
+	FOR EACH ROW
+	BEGIN
+		:new.order_id := order_seq.NEXTVAL;
+	END;
+	/
